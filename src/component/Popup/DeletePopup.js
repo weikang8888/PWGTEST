@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-const DeletePopup = ({ onClose, submit, showDeletePopup }) => {
+const DeletePopup = ({ onClose, submit, showDeletePopup, title }) => {
   return (
     <div
       className={`popup col-md-8 col-lg-6 popup-container ${
@@ -11,7 +11,7 @@ const DeletePopup = ({ onClose, submit, showDeletePopup }) => {
       <div className="popup-content">
         <div className="row justify-content-center">
           <div className="popup-body text-center">
-            <span className="popup-title-delete">Post Title</span>
+            <span className="popup-title-delete">{title}</span>
             <p className="popup-title-message my-4">
               Are you sure you want to delete this post ?
             </p>

@@ -9,9 +9,10 @@ const PostList = ({ posts, onEdit, onDelete }) => {
     onEdit(postId);
   };
 
-  const handleDeleteClick = (postId) => {
-    onDelete(postId);
+  const handleDeleteClick = (postId, postTitle) => {
+    onDelete(postId, postTitle);
   };
+
   const handleViewClick = (postId) => {
     navigate(`/view/${postId}`);
   };
@@ -19,7 +20,10 @@ const PostList = ({ posts, onEdit, onDelete }) => {
   return (
     <div className="row">
       {posts.map((post, index) => (
-        <div className="col-lg-4 mb-4" key={`${post.id}-${index}`}>
+        <div
+          className="col-lg-4 mb-4 post-card-max-height"
+          key={`${post.id}-${index}`}
+        >
           <div className="post-card">
             <div className="d-flex justify-content-between align-items-center">
               <span className="post-date">
@@ -28,19 +32,19 @@ const PostList = ({ posts, onEdit, onDelete }) => {
               <img src={PWG} alt="PWG" className="pwg-image" />
             </div>
             <h5 className="post-title">{post.title}</h5>
-            <p className="post-body">
+            <div className="post-body">
               {post.body.length > 150
                 ? `${post.body.slice(0, 150)}...`
                 : post.body}
-            </p>
-            <div className="tag-container">
+            </div>
+            <div className="tag-container mt-2">
               {post.tags.map((tag, index) => (
                 <span key={index} className="post-tag">
                   {tag}
                 </span>
               ))}
             </div>
-            <div className="button-container d-flex justify-content-between my-4">
+            <div className="button-container d-flex justify-content-between mt-4">
               <button
                 className="button-edit"
                 onClick={() => handleEditClick(post.id)}
@@ -55,7 +59,7 @@ const PostList = ({ posts, onEdit, onDelete }) => {
               </button>
               <button
                 className="button-delete"
-                onClick={() => handleDeleteClick(post.id)}
+                onClick={() => handleDeleteClick(post.id, post.title)}
               >
                 Delete
               </button>

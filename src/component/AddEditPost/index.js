@@ -38,10 +38,20 @@ const AddEditPost = ({ onClose, submit, initialValues, showPopup }) => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [id]: "",
+    }));
   };
 
   const handleTagsChange = (selectedTags) => {
     setFormData({ ...formData, tags: selectedTags });
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      tags: "",
+    }));
   };
 
   const getValidatedValue = () => {

@@ -21,8 +21,12 @@ const RegisterForm = () => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-  };
 
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [id]: "",
+    }));
+  };
   const validateForm = () => {
     const newErrors = {};
     if (!formData.username) newErrors.username = "Username is required";
@@ -47,11 +51,12 @@ const RegisterForm = () => {
 
     try {
       const response = await registerUser(requestData);
+      localStorage.setItem("token", response.data.token);
       setPopupImage(successIcon);
       setPopupMessage(response.data.message);
       setShowPopup(true);
       setTimeout(() => {
-        navigate("/login");
+        navigate("/dashboard");
       }, 2000);
     } catch (error) {
       console.error("Register failed:", error.response.data.message);

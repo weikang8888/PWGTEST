@@ -36,8 +36,6 @@ class Homepage extends Component {
 
   componentDidMount() {
     this.fetchMyPosts();
-    this.fetchAllAccounts();
-    this.fetchAllPosts();
     this.updateUserRole();
   }
 
@@ -46,7 +44,12 @@ class Homepage extends Component {
     if (token) {
       const decodedToken = jwtDecode(token);
       const userRole = decodedToken.role;
-      this.setState({ userRole });
+      this.setState({ userRole }, () => {
+        if (userRole === "admin") {
+          this.fetchAllAccounts();
+          this.fetchAllPosts();
+        }
+      });
     }
   };
 
@@ -66,12 +69,12 @@ class Homepage extends Component {
     }
   };
 
-  handleDeletePost = async (postId) => {
+  handleDeletePost = (postId, postTitle) => {
     const rootElement = document.getElementById("overlay");
     if (rootElement) {
       rootElement.classList.add("overlay");
     }
-    this.setState({ showDeletePopup: true, postId: postId });
+    this.setState({ showDeletePopup: true, postId: postId, title: postTitle });
   };
 
   handleClosePopup = () => {
@@ -218,6 +221,7 @@ class Homepage extends Component {
       totalAccount,
       totalPosts,
       loading,
+      title,
     } = this.state;
 
     return (
@@ -265,6 +269,7 @@ class Homepage extends Component {
             onClose={this.handleCloseDeletePopup}
             submit={this.handleSubmitDelete}
             showDeletePopup={showDeletePopup}
+            title={title}
           />
           {this.renderPaginationButtons()}
         </div>

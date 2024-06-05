@@ -68,10 +68,15 @@ body {
 .pwg-image {
   width: 60px;
 }
+
 .post-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 10px;
   padding: 1rem 2rem;
   background-color: white;
+  height: 100%;
 }
 
 .post-date {
@@ -93,11 +98,13 @@ body {
 }
 
 .post-body {
+  flex: 1;
   font-size: 16px;
   word-wrap: break-word;
   white-space: pre-wrap;
+  max-height: 150px;
+  overflow: hidden;
 }
-
 .home-title {
   font-size: 32px;
 }
@@ -109,9 +116,11 @@ body {
 }
 
 .button-container {
+  display: flex;
+  justify-content: space-between;
   gap: 15px;
+  margin-top: auto;
 }
-
 .button-container button {
   width: 100%;
 }
